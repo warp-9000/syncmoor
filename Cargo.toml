@@ -46,7 +46,7 @@ chrono         = { version = "0.4", default-features = false, features = ["clock
 ulid           = { version = "1", features = ["serde"] }
 
 # Git
-gix            = { version = "0.66", default-features = false, features = ["max-performance-safe", "blocking-network-client", "blocking-http-transport-reqwest-rust-tls"] }
+gix            = { version = "0.83", default-features = false, features = ["max-performance-safe", "blocking-network-client", "blocking-http-transport-reqwest-rust-tls"] }
 
 # Filesystem watching
 notify                  = "6"
