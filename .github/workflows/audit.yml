@@ -16,7 +16,7 @@ jobs:
     name: cargo audit (RustSec advisories)
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: rustsec/audit-check@v1.4.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -25,7 +25,7 @@ jobs:
     name: cargo deny (licenses + bans + sources)
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@1.88.0
       - uses: EmbarkStudios/cargo-deny-action@v2
         with:
