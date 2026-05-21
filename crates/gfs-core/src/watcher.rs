@@ -140,6 +140,14 @@ mod tests {
         assert!(got.is_some(), "channel closed unexpectedly");
     }
 
+    /// Note: skipped on macOS. FSEvents on macOS frequently replays
+    /// pre-watch directory-creation events into the first batch after
+    /// the watcher starts, even with a sleep grace period — so this
+    /// test is flaky there. The production filter (`is_under_dot_git`)
+    /// is exercised directly by `is_under_dot_git_detects_nested_paths`
+    /// and the full daemon round-trip on macOS is covered by
+    /// `tests/sync_e2e.rs`.
+    #[cfg(not(target_os = "macos"))]
     #[tokio::test(flavor = "current_thread")]
     async fn suppresses_dot_git_only_writes() {
         let dir = tempfile::tempdir().unwrap();

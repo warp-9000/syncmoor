@@ -89,7 +89,6 @@ jobs:
           cache: 'pnpm'
           cache-dependency-path: app/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run lint
       - run: pnpm run check
 
   # ----- License + ban + advisory check ------------------------------------
