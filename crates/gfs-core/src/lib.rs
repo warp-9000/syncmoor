@@ -26,16 +26,23 @@
 #![deny(rust_2018_idioms)]
 #![warn(missing_debug_implementations)]
 
+pub mod config;
+pub mod daemon;
+pub mod git;
 pub mod status;
+pub mod watcher;
 
 // The following modules are stubbed out in Phase 0 and filled in later
 // phases. Declaring them now keeps `pub use` paths stable.
 //
-// pub mod config;
-// pub mod watcher;
-// pub mod git;
-// pub mod daemon;
 // pub mod state;
 // pub mod ipc;
 
+pub use config::{
+    AuthMethod, CommitConfig, CommitStrategy, ConflictConfig, ConflictMode, FolderConfig,
+    IgnoreConfig, RemoteConfig, SyncConfig,
+};
+pub use daemon::{sync_once, Daemon, SyncOutcome};
+pub use git::GitCmd;
 pub use status::{GitStep, SyncError, SyncPhase, SyncStatus};
+pub use watcher::FolderWatcher;
