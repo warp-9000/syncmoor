@@ -1,0 +1,64 @@
+name: Bug report
+description: Something is broken or behaves unexpectedly.
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a bug. Please be specific — "it doesn't work"
+        without context is not actionable.
+
+  - type: input
+    id: version
+    attributes:
+      label: syncmoor version
+      placeholder: "e.g. 0.1.0 or commit sha"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Windows 11
+        - Windows 10
+        - macOS (Sequoia / 15)
+        - macOS (Sonoma / 14)
+        - Linux (X11)
+        - Linux (Wayland)
+        - Other (describe below)
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: Include the exact sequence of actions if it's reproducible.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Folder config TOML
+      description: Contents of the affected folder's `.toml`. **Redact private remote URLs.**
+      render: toml
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / tray icon state
+      description: |
+        Output of `gfs logs <folder>` if applicable, and what the tray
+        icon was showing at the time.
+      render: text

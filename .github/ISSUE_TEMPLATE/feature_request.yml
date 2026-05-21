@@ -1,0 +1,34 @@
+name: Feature request
+description: Propose a change to existing behaviour or a new capability.
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: scenario
+    attributes:
+      label: The workflow you're trying to support
+      description: |
+        Describe the use case first, the implementation second. We will
+        not merge "add a setting for X" without understanding the
+        scenario.
+    validations:
+      required: true
+
+  - type: textarea
+    id: today
+    attributes:
+      label: What happens today
+      description: Why the current behaviour doesn't work for this use case.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Optional — describe the API, UI, or behaviour you have in mind.
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered

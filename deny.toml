@@ -1,0 +1,74 @@
+# cargo-deny configuration for syncmoor.
+#
+# Enforces:
+#   * License allowlist consistent with shipping an MIT binary.
+#   * Banned crates we have explicit reasons to avoid.
+#   * Vulnerability scanning via RustSec advisory DB.
+#
+# Run locally:
+#   cargo deny check
+
+[graph]
+all-features = true
+
+# ---------------------------------------------------------------------------
+# Advisories — RustSec DB
+# ---------------------------------------------------------------------------
+[advisories]
+db-path        = "~/.cargo/advisory-db"
+db-urls        = ["https://github.com/rustsec/advisory-db"]
+ignore         = []
+yanked         = "deny"
+
+# ---------------------------------------------------------------------------
+# Licenses — MIT-compatible allowlist
+# ---------------------------------------------------------------------------
+[licenses]
+confidence-threshold = 0.93
+allow = [
+    "MIT",
+    "MIT-0",
+    "Apache-2.0",
+    "Apache-2.0 WITH LLVM-exception",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "BSL-1.0",        # Boost
+    "CC0-1.0",
+    "ISC",
+    "MPL-2.0",
+    "Unicode-DFS-2016",
+    "Unicode-3.0",
+    "Zlib",
+]
+
+# Crates with non-SPDX or unusual licensing get an exception here, NOT a
+# blanket allow above. Keep this short and re-justify on every PR that
+# adds to it.
+exceptions = []
+
+# Linking note: MPL-2.0 deps are file-level copyleft only, so dynamic or
+# static linking is fine for an MIT binary as long as we ship the source
+# of modified MPL files (we don't fork any). LGPL/GPL are NOT allowed.
+
+# ---------------------------------------------------------------------------
+# Bans — known-incompatible or duplicative
+# ---------------------------------------------------------------------------
+[bans]
+multiple-versions = "warn"
+wildcards         = "deny"
+deny = [
+    # libgit2 binding — we use gix (pure Rust) instead.
+    { name = "git2",   reason = "Prefer pure-Rust gix; revisit only if a feature is missing" },
+    # OpenSSL — we use rustls everywhere.
+    { name = "openssl", reason = "Use rustls; avoid OpenSSL link complexity on Windows" },
+]
+skip = []
+
+# ---------------------------------------------------------------------------
+# Sources — only crates.io and approved git remotes
+# ---------------------------------------------------------------------------
+[sources]
+unknown-registry = "deny"
+unknown-git      = "deny"
+allow-registry   = ["https://github.com/rust-lang/crates.io-index"]
+allow-git        = []

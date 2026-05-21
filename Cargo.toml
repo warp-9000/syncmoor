@@ -1,0 +1,62 @@
+# SyncMoor — cross-platform tray app for continuous git folder sync.
+# This workspace ties together:
+#   * crates/gfs-core   — pure-Rust sync daemon library
+#   * crates/gfs-cli    — `gfs` headless CLI
+#   * app/src-tauri     — Tauri 2 tray shell (Svelte frontend in ../src)
+
+[workspace]
+resolver = "2"
+members = [
+    "crates/gfs-core",
+    "crates/gfs-cli",
+    "app/src-tauri",
+]
+
+[workspace.package]
+version       = "0.0.0"
+edition       = "2021"
+rust-version  = "1.88"
+license       = "MIT"
+repository    = "https://github.com/warp-9000/syncmoor"
+authors       = ["warp-9000"]
+homepage      = "https://github.com/warp-9000/syncmoor"
+readme        = "README.md"
+
+[workspace.dependencies]
+# Async runtime
+tokio          = { version = "1", features = ["macros", "rt-multi-thread", "fs", "io-util", "sync", "time", "signal"] }
+tokio-stream   = "0.1"
+futures-util   = "0.3"
+
+# Errors / logging
+anyhow         = "1"
+thiserror      = "1"
+tracing        = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Serialization
+serde          = { version = "1", features = ["derive"] }
+serde_json     = "1"
+toml           = "0.8"
+
+# Time
+chrono         = { version = "0.4", default-features = false, features = ["clock", "serde", "std"] }
+
+# IDs
+ulid           = { version = "1", features = ["serde"] }
+
+# Git
+gix            = { version = "0.66", default-features = false, features = ["max-performance-safe", "blocking-network-client", "blocking-http-transport-reqwest-rust-tls"] }
+
+# Filesystem watching
+notify                  = "6"
+notify-debouncer-full   = "0.3"
+
+# Local persistence
+rusqlite       = { version = "0.32", features = ["bundled"] }
+
+# CLI
+clap           = { version = "4", features = ["derive", "wrap_help"] }
+
+# Templating for commit messages
+tera           = { version = "1", default-features = false }

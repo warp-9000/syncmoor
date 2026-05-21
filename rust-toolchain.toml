@@ -1,0 +1,8 @@
+[toolchain]
+# Pinning to a stable MSRV. edition2024 (Rust 1.85+) is required by
+# several modern deps (idna, etc.) so this is the floor. Bump only
+# when a new compiler feature is actually required. CI also runs
+# nightly on a side job to catch upcoming breakage early.
+channel    = "1.88.0"
+components = ["rustfmt", "clippy"]
+profile    = "minimal"

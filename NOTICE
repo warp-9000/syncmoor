@@ -1,0 +1,36 @@
+syncmoor
+Copyright (c) 2026 warp-9000
+
+This product includes ideas and algorithmic patterns adapted from:
+
+  - simonthum/git-sync (https://github.com/simonthum/git-sync)
+    Released under CC0-1.0 (public domain dedication).
+    Sync-loop sequencing and "check mode" semantics were studied and
+    re-implemented in Rust.
+
+  - tiddly-gittly/git-sync-js (https://github.com/tiddly-gittly/git-sync-js)
+    Released under the MIT License.
+    Copyright (c) tiddly-gittly contributors.
+    The typed-error model and the granular GitStep progress enum informed
+    crates/gfs-core/src/status.rs. No source code was copied.
+
+  - GitJournal/git-auto-sync (https://github.com/GitJournal/git-auto-sync)
+    Released under MIT/Apache-2.0-style permissive terms.
+    Behaviour around foreground notification of conflicts informed the
+    Conflict UI hand-off design.
+
+The following projects were studied as architectural references only;
+no code from them is included in this distribution:
+
+  - SparkleShare (https://github.com/hbons/SparkleShare) — GPLv3 / LGPLv3.
+    The five-state tray-icon vocabulary (Idle / Syncing / Paused / Conflict
+    / Error) and the per-folder tray submenu pattern are concepts; the
+    implementation here is independent.
+
+  - obsidian-git (https://github.com/Vinzent03/obsidian-git) — MIT.
+    Inspired the dual-timer model (debounced commit + interval pull) but
+    no code was copied.
+
+All other dependencies are listed in Cargo.lock / pnpm-lock.yaml with
+their original licenses preserved. License compliance is enforced via
+`cargo-deny` (see `deny.toml`).

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation
+    url: https://github.com/warp-9000/syncmoor/tree/main/docs
+    about: Read architecture and conflict-resolution docs before filing.
+  - name: Discussions
+    url: https://github.com/warp-9000/syncmoor/discussions
+    about: Ask a question or share a use case (not for bug reports).
