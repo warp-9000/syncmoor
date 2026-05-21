@@ -1,3 +1,8 @@
 allowBuilds:
   esbuild: true
   '@tauri-apps/cli': true
+
+# Empty packages list keeps pnpm v9 happy (it treats this file as a
+# monorepo manifest and errors on a missing packages field). pnpm v11
+# is permissive but CI may still be on v9 elsewhere.
+packages: []
