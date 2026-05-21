@@ -34,7 +34,7 @@ jobs:
             runner: ubuntu-24.04
             bundles: 'appimage,deb'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: dtolnay/rust-toolchain@1.88.0
         with:
@@ -92,6 +92,6 @@ jobs:
     needs: build
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Generate checksums
         run: echo "Checksums are attached by tauri-action; manual SHA-256 publication can land here in a later phase."
