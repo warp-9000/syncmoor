@@ -18,7 +18,7 @@ edition       = "2021"
 rust-version  = "1.88"
 license       = "MIT"
 repository    = "https://github.com/warp-9000/syncmoor"
-authors       = ["warp-9000"]
+authors       = ["Peter Paquette <105465016+warp-9000@users.noreply.github.com>"]
 homepage      = "https://github.com/warp-9000/syncmoor"
 readme        = "README.md"
 
