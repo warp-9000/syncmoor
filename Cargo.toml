@@ -51,7 +51,7 @@ ulid           = { version = "1", features = ["serde"] }
 
 # Filesystem watching
 notify                  = "6"
-notify-debouncer-full   = "0.3"
+notify-debouncer-full   = "0.7"
 
 # Local persistence
 rusqlite       = { version = "0.32", features = ["bundled"] }
