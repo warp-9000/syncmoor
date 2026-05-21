@@ -40,7 +40,16 @@ impl FolderWatcher {
         debounce: Duration,
         tx: UnboundedSender<()>,
     ) -> Result<Self, notify::Error> {
-        let root = root.as_ref().to_path_buf();
+        // Canonicalize the root so the path-prefix check in
+        // `is_under_dot_git` works even on macOS, where FSEvents
+        // resolves symlinks (`/var/folders/...` becomes
+        // `/private/var/folders/...`). Without this, the `.git/`
+        // suppression filter misses events on macOS tempdirs and
+        // related setups.
+        let root = root
+            .as_ref()
+            .canonicalize()
+            .unwrap_or_else(|_| root.as_ref().to_path_buf());
         let root_for_filter = root.clone();
 
         let mut debouncer = new_debouncer(debounce, None, move |result: DebounceEventResult| {

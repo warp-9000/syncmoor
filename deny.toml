@@ -17,6 +17,12 @@ all-features = true
 [advisories]
 db-path        = "~/.cargo/advisory-db"
 db-urls        = ["https://github.com/rustsec/advisory-db"]
+# Only fail on advisories that affect crates the workspace itself
+# uses directly. Transitive advisories (notably the gtk-rs GTK3
+# unmaintained set pulled in by Tauri 2, RUSTSEC-2024-0411..0420)
+# are surfaced as warnings — we can't fix them without an upstream
+# Tauri migration to gtk4-rs.
+unmaintained   = "workspace"
 ignore         = []
 yanked         = "deny"
 
@@ -34,6 +40,7 @@ allow = [
     "BSD-3-Clause",
     "BSL-1.0",        # Boost
     "CC0-1.0",
+    "CDLA-Permissive-2.0",   # webpki-roots (via reqwest/gix); data license, permissive
     "ISC",
     "MPL-2.0",
     "Unicode-DFS-2016",

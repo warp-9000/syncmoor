@@ -27,6 +27,18 @@ jobs:
         with:
           components: rustfmt, clippy
       - uses: Swatinem/rust-cache@v2
+      - name: Install Tauri Linux prerequisites
+        # syncmoor-app pulls in webkit2gtk/gobject/glib via tauri.
+        # Without these deps, even `cargo check` on the workspace fails
+        # on the Tauri shell crate.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libappindicator3-dev \
+            librsvg2-dev \
+            patchelf \
+            libgtk-3-dev
       - name: cargo fmt
         run: cargo fmt --all -- --check
       - name: cargo clippy

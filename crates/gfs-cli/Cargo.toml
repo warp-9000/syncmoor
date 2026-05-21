@@ -15,7 +15,7 @@ name = "gfs"
 path = "src/main.rs"
 
 [dependencies]
-gfs-core   = { path = "../gfs-core" }
+gfs-core   = { path = "../gfs-core", version = "0.0.0" }
 clap       = { workspace = true }
 tokio      = { workspace = true }
 anyhow     = { workspace = true }

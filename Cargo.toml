@@ -45,8 +45,9 @@ chrono         = { version = "0.4", default-features = false, features = ["clock
 # IDs
 ulid           = { version = "1", features = ["serde"] }
 
-# Git
-gix            = { version = "0.66", default-features = false, features = ["max-performance-safe", "blocking-network-client", "blocking-http-transport-reqwest-rust-tls"] }
+# Git: Phase 1 shells out to the system `git` binary (see
+# crates/gfs-core/src/git.rs). gix will be reintroduced when we
+# selectively port operations to pure-Rust in later phases.
 
 # Filesystem watching
 notify                  = "6"
@@ -58,5 +59,7 @@ rusqlite       = { version = "0.32", features = ["bundled"] }
 # CLI
 clap           = { version = "4", features = ["derive", "wrap_help"] }
 
-# Templating for commit messages
-tera           = { version = "1", default-features = false }
+# Templating for commit messages: Phase 1 uses simple `String::replace`
+# for the small placeholder set in plan.md §6. tera (or another full
+# templating engine) returns when we need conditionals / loops in the
+# commit-message DSL.
