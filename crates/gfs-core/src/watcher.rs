@@ -90,15 +90,21 @@ impl FolderWatcher {
     }
 }
 
-/// True if `path` lies inside `<root>/.git/` (or is `<root>/.git`
-/// itself). Used to suppress watcher noise from git's own writes.
-fn is_under_dot_git(root: &Path, path: &Path) -> bool {
-    let Ok(rel) = path.strip_prefix(root) else {
-        return false;
-    };
-    rel.components()
-        .next()
-        .is_some_and(|c| c.as_os_str() == ".git")
+/// True if `path` lies inside (or is itself) the repo's `.git/`
+/// directory. Used to suppress watcher noise from git's own writes.
+///
+/// Implementation: check whether any path component is literally
+/// `.git`. This is intentionally a coarser match than a strict
+/// `<root>/.git/<...>` prefix — on macOS, FSEvents canonicalizes
+/// tempdir paths (`/var/...` becomes `/private/var/...`) so a
+/// `strip_prefix(root)` against the un-canonicalized root fails and
+/// lets `.git/` events through.
+///
+/// The (acceptable) cost is that submodule `.git` directories are
+/// also filtered. Submodules are explicitly out of scope for v1
+/// (see plan.md §15).
+fn is_under_dot_git(_root: &Path, path: &Path) -> bool {
+    path.components().any(|c| c.as_os_str() == ".git")
 }
 
 // ---------------------------------------------------------------------------
@@ -187,6 +193,11 @@ mod tests {
             Path::new("/repo/.git/refs/heads/main")
         ));
         assert!(!is_under_dot_git(root, Path::new("/repo/src/main.rs")));
-        assert!(!is_under_dot_git(root, Path::new("/other/.git/index")));
+        // macOS-style: FSEvents reports /private/var/... even when we
+        // watched /var/...; the component-walk impl handles this.
+        assert!(is_under_dot_git(
+            Path::new("/var/folders/abc"),
+            Path::new("/private/var/folders/abc/.git/HEAD"),
+        ));
     }
 }
