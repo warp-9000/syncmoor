@@ -50,7 +50,7 @@ ulid           = { version = "1", features = ["serde"] }
 # selectively port operations to pure-Rust in later phases.
 
 # Filesystem watching
-notify                  = "6"
+notify                  = "8"
 notify-debouncer-full   = "0.3"
 
 # Local persistence
