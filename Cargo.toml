@@ -43,7 +43,7 @@ toml           = "0.8"
 chrono         = { version = "0.4", default-features = false, features = ["clock", "serde", "std"] }
 
 # IDs
-ulid           = { version = "1", features = ["serde"] }
+ulid           = { version = "3", features = ["serde"] }
 
 # Git: Phase 1 shells out to the system `git` binary (see
 # crates/gfs-core/src/git.rs). gix will be reintroduced when we
